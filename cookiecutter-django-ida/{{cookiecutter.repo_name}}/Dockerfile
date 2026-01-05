@@ -25,18 +25,15 @@ RUN apt-get update && apt-get -qy install --no-install-recommends \
         locales \
         pkg-config \
         python${PYTHON_VERSION} \
-        python${PYTHON_VERSION}-dev
+        python${PYTHON_VERSION}-dev \
+        python3-pip
 
 # delete apt package lists because we do not need them inflating our image
 RUN rm -rf /var/lib/apt/lists/*
 
-# Install pip for our version of Python
-RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python${PYTHON_VERSION}
-
 # create our Python virtual env
 ENV VIRTUAL_ENV=/edx/venvs/{{cookiecutter.project_name}}
-RUN pip install virtualenv
-RUN virtualenv -p python${PYTHON_VERSION} ${VIRTUAL_ENV}
+RUN python${PYTHON_VERSION} -m venv ${VIRTUAL_ENV}
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Python is Python3
