@@ -1,14 +1,9 @@
-FROM ubuntu:focal AS app
+FROM ubuntu:jammy AS app
 
 ARG PYTHON_VERSION=3.12
 ENV TZ=UTC
 ENV TERM=xterm-256color
 ENV DEBIAN_FRONTEND=noninteractive
-
-# software-properties-common is needed to setup our Python 3.12 env
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-add-repository -y ppa:deadsnakes/ppa
 
 # Packages installed:
 # curl; used to install pip
@@ -45,9 +40,6 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 # Python is Python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
-
-# Setup zoneinfo for Python 3.12
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Use UTF-8
 RUN locale-gen en_US.UTF-8
