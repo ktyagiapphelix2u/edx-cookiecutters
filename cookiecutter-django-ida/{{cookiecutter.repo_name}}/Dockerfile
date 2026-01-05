@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS app
+FROM ubuntu:noble AS app
 
 ARG PYTHON_VERSION=3.12
 ENV TZ=UTC
