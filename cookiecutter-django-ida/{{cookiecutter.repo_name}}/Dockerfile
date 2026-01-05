@@ -26,7 +26,7 @@ RUN apt-get update && apt-get -qy install --no-install-recommends \
         pkg-config \
         python${PYTHON_VERSION} \
         python${PYTHON_VERSION}-dev \
-        python3-pip
+        python${PYTHON_VERSION}-venv
 
 # delete apt package lists because we do not need them inflating our image
 RUN rm -rf /var/lib/apt/lists/*
